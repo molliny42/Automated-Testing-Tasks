@@ -19,4 +19,10 @@
     <PackageReference Include="Selenium.Support" Version="4.10.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="PageObjects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PageObjects\" />
+  </ItemGroup>
 </Project>
