@@ -39,13 +39,14 @@ public class Tests
         int initialGamesCountFromText = topSellers.GetGamesCountFromText();
 
         topSellers.ApplyFilters();
-        topSellers.WaitForFiltersApplied();
 
         Assert.IsTrue(topSellers.IsSingleplayerCheckboxChecked(), "Singlplayer checkbox is not checked");
         Assert.IsTrue(topSellers.IsWindowsCheckboxChecked(), "Windows checkbox is not checked");
         Assert.IsTrue(topSellers.IsActionCheckboxChecked(), "Action checkbox is not checked");
         Assert.IsTrue(topSellers.IsSimulationCheckboxChecked(), "Simulation checkbox is not checked");
 
+
+        topSellers.WaitForFiltersApplied();
 
         int filteredGamesCountFromText = topSellers.GetGamesCountFromText();
 
@@ -59,12 +60,16 @@ public class Tests
         Console.WriteLine("Found games = " + topSellers.GetDisplayedGamesCount() + "\n");
 
         Assert.AreEqual(topSellers.GetDisplayedGamesCount(), filteredGamesCountFromText, "The number of games displayed is not as expected");
+
+        double priceFirstGame = topSellers.GetDisplayedGamesCount();
+
+        Console.WriteLine("First game price = " + topSellers.GetGamePrice().ToString());
     }
 
     [TearDown]
     public void TearDown()
     {
-        //_webDriver.Quit();
+        _webDriver.Quit();
     }
 }
 
