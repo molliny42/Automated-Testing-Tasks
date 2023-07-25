@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using System.Text.RegularExpressions;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 
 namespace TopSellersSteamPageTests.PageObjects
 {
@@ -10,7 +7,6 @@ namespace TopSellersSteamPageTests.PageObjects
         private readonly By _cookiesPopup = By.XPath("//div[@class='cookiepreferences_popup_content']");
         private readonly By _acceptCookiesButton = By.XPath("//div[@id='acceptAllButton']");
         private readonly By _homePageGutter = By.XPath("//div[@class='home_page_gutter']");
-
         private readonly By _topSellersButton = By.XPath("(//a[contains(@href, 'topsellers')])[1]\n");
 
         public MainMenuPageObject(IWebDriver webDriver) : base(webDriver)

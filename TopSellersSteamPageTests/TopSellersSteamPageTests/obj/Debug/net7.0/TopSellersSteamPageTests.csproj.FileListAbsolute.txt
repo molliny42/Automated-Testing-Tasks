@@ -101,3 +101,4 @@
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.pdb
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.genruntimeconfig.cache
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/ref/TopSellersSteamPageTests.dll
+/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/SeleniumExtras.WaitHelpers.dll

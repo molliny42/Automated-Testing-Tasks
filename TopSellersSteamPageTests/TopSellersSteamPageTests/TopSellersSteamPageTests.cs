@@ -1,8 +1,7 @@
-﻿namespace TopSellersSteamPageTests;
-
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium;
 using TopSellersSteamPageTests.PageObjects;
+
+namespace TopSellersSteamPageTests;
 
 public class Tests
 {
@@ -32,9 +31,18 @@ public class Tests
 
         Assert.IsTrue(topSellers.IsTopSellersPageDisplayed(), "Top sellers page is not opened!");
 
-       int initialGamesCount = topSellers.GetGamesCount();
+        int initialGamesCount = topSellers.GetGamesCount();
 
-        Assert.AreEqual(9262, initialGamesCount, "!!!!!!!!!!!!!!!!!!!!!");
+        topSellers.ApplyFilters();
+        topSellers.WaitForFiltersApplied();
+
+
+        int filteredGamesCount = topSellers.GetGamesCount();
+
+        Assert.IsTrue(topSellers.IsSingleplayerCheckboxChecked(), "Singlplayer checkbox is not checked");
+        Assert.IsTrue(topSellers.IsActionCheckboxChecked(), "Action checkbox is not checked");
+        Assert.IsTrue(topSellers.IsWindowsCheckboxChecked(), "Windows checkbox is not checked");
+        Assert.Greater(initialGamesCount, filteredGamesCount, "The number of games did not change after applying the filter");
 
 
     }

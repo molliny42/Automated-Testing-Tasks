@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "cJjO7qho02odPcbc92eOzegfHW4eG5gNBuyUrULzMaDC5usksNOqLn8Idlb2t+dHErz/WBeAtAGncbBzIOcTdA==",
+  "dgSpecHash": "U7qR8nBHF191OPfPiL6inuPkhRdeYD3VN+BPtyTuLnybbkZI3MehvHkTJ+QYeaerlHEjtpKe3cd6h8stEJ0Qrw==",
   "success": true,
   "projectFilePath": "/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/TopSellersSteamPageTests.csproj",
   "expectedPackageFiles": [
     "/Users/tatanamalinina/.nuget/packages/coverlet.collector/3.2.0/coverlet.collector.3.2.0.nupkg.sha512",
+    "/Users/tatanamalinina/.nuget/packages/dotnetseleniumextras.waithelpers/3.11.0/dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
     "/Users/tatanamalinina/.nuget/packages/microsoft.codecoverage/17.5.0/microsoft.codecoverage.17.5.0.nupkg.sha512",
     "/Users/tatanamalinina/.nuget/packages/microsoft.net.test.sdk/17.5.0/microsoft.net.test.sdk.17.5.0.nupkg.sha512",
     "/Users/tatanamalinina/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",

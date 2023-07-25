@@ -1,13 +1,14 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace TopSellersSteamPageTests
 {
-	public class ElementWaiter
-	{
-		private IWebDriver _webDriver;
-		private WebDriverWait _wait;
+    public class ElementWaiter
+    {
+        private IWebDriver _webDriver;
+        private WebDriverWait _wait;
 
         public ElementWaiter(IWebDriver webDriver, TimeSpan timeout)
         {
@@ -25,4 +26,3 @@ namespace TopSellersSteamPageTests
         }
     }
 }
-
