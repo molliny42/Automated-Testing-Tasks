@@ -1,8 +1,3 @@
-/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.csproj.AssemblyReference.cache
-/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.GeneratedMSBuildEditorConfig.editorconfig
-/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.AssemblyInfoInputs.cache
-/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.AssemblyInfo.cs
-/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.csproj.CoreCompileInputs.cache
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/NUnit3.TestAdapter.dll
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/NUnit3.TestAdapter.pdb
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/nunit.engine.dll
@@ -16,6 +11,7 @@
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/TopSellersSteamPageTests.runtimeconfig.json
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/TopSellersSteamPageTests.dll
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/TopSellersSteamPageTests.pdb
+/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/SeleniumExtras.WaitHelpers.dll
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/Microsoft.TestPlatform.CoreUtilities.dll
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/Microsoft.TestPlatform.PlatformAbstractions.dll
@@ -95,10 +91,14 @@
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.csproj.AssemblyReference.cache
+/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.GeneratedMSBuildEditorConfig.editorconfig
+/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.AssemblyInfoInputs.cache
+/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.AssemblyInfo.cs
+/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.csproj.CoreCompileInputs.cache
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.csproj.CopyComplete
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.dll
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/refint/TopSellersSteamPageTests.dll
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.pdb
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/TopSellersSteamPageTests.genruntimeconfig.cache
 /Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/obj/Debug/net7.0/ref/TopSellersSteamPageTests.dll
-/Users/tatanamalinina/Desktop/Test C#/Automated-Testing-Tasks/TopSellersSteamPageTests/TopSellersSteamPageTests/bin/Debug/net7.0/SeleniumExtras.WaitHelpers.dll

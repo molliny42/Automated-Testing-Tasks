@@ -12,15 +12,22 @@ namespace TopSellersSteamPageTests.PageObjects
         public MainMenuPageObject(IWebDriver webDriver) : base(webDriver)
         {
         }
-
+      
         public void CloseCookiesPopup()
         {
-            if (_elementWaiter.WaitForElementDisplayedAndEnabled(_cookiesPopup).Displayed)
+            try
             {
-                _elementWaiter.WaitForElementDisplayedAndEnabled(_acceptCookiesButton).Click();
+                if (_elementWaiter.WaitForElementDisplayedAndEnabled(_cookiesPopup).Displayed)
+                {
+                    _elementWaiter.WaitForElementDisplayedAndEnabled(_acceptCookiesButton).Click();
+                }
+            }
+            catch (WebDriverTimeoutException)
+            {
+                 //Console.WriteLine("Cookies popup was not found.");
             }
         }
-             
+
         public bool IsMainMenuPageIsDisplayed()
         {            
             return _elementWaiter.WaitForElementDisplayedAndEnabled(_homePageGutter).Displayed;

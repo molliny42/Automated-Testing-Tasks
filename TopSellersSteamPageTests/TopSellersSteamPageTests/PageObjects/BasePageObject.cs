@@ -12,7 +12,7 @@ namespace TopSellersSteamPageTests.PageObjects
         public BasePageObject(IWebDriver webDriver)
         {
             _webDriver = webDriver;
-            _elementWaiter = new ElementWaiter(_webDriver, TimeSpan.FromSeconds(3));
+            _elementWaiter = new ElementWaiter(_webDriver, TimeSpan.FromSeconds(5));
         }
     }
 }

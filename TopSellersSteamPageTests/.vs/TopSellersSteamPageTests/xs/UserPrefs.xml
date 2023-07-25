@@ -1,33 +1,28 @@
 ﻿<Properties StartupConfiguration="{676E6B1B-1626-458F-9483-9B1C514E7149}|Default">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workbench ActiveDocument="TopSellersSteamPageTests/TopSellersSteamPageTests.cs">
     <Files>
-      <File FileName="TopSellersSteamPageTests/PageObjects/BasePageObject.cs" Line="1" Column="1" />
-      <File FileName="TopSellersSteamPageTests/PageObjects/MainMenuPageObject.cs" Line="1" Column="1" />
-      <File FileName="TopSellersSteamPageTests/PageObjects/TopSellersPageObject.cs" Line="1" Column="1" />
-      <File FileName="TopSellersSteamPageTests/TopSellersSteamPageTests.cs" Line="18" Column="1" />
-      <File FileName="TopSellersSteamPageTests/ElementWaiter.cs" Line="1" Column="1" />
+      <File FileName="TopSellersSteamPageTests/ElementWaiter.cs" />
+      <File FileName="TopSellersSteamPageTests/TopSellersSteamPageTests.cs" Line="37" Column="9" />
+      <File FileName="TopSellersSteamPageTests/PageObjects/TopSellersPageObject.cs" />
+      <File FileName="TopSellersSteamPageTests/PageObjects/BasePageObject.cs" />
+      <File FileName="TopSellersSteamPageTests/PageObjects/MainMenuPageObject.cs" />
+      <File FileName="TopSellersSteamPageTests/Usings.cs" />
     </Files>
     <Pads>
-      <Pad Id="ProjectPad">
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
         <State name="__root__">
-          <Node name="TopSellersSteamPageTests" expanded="True">
-            <Node name="TopSellersSteamPageTests" expanded="True">
-              <Node name="PageObjects" expanded="True" />
-              <Node name="TopSellersSteamPageTests.cs" selected="True" />
-            </Node>
+          <Node name="TopSellersSteamPageTests">
+            <Node name="TopSellersSteamPageTests" selected="True" />
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__" />
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.TopSellersSteamPageTests PreferredExecutionTarget="MonoDevelop.Default" />
-  <MultiItemStartupConfigurations />
 </Properties>

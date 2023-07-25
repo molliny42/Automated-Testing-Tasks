@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
 using TopSellersSteamPageTests.PageObjects;
 
 namespace TopSellersSteamPageTests;
@@ -10,7 +12,10 @@ public class Tests
     [SetUp]
     public void Setup()
     {
-        _webDriver = new OpenQA.Selenium.Chrome.ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.BinaryLocation = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; // Укажите полный путь к исполняемому файлу Chrome
+
+        _webDriver = new ChromeDriver(options);
 
         _webDriver.Manage().Window.Maximize();
         _webDriver.Navigate().GoToUrl("https://store.steampowered.com");
@@ -31,20 +36,29 @@ public class Tests
 
         Assert.IsTrue(topSellers.IsTopSellersPageDisplayed(), "Top sellers page is not opened!");
 
-        int initialGamesCount = topSellers.GetGamesCount();
+        int initialGamesCountFromText = topSellers.GetGamesCountFromText();
 
         topSellers.ApplyFilters();
         topSellers.WaitForFiltersApplied();
 
-
-        int filteredGamesCount = topSellers.GetGamesCount();
-
         Assert.IsTrue(topSellers.IsSingleplayerCheckboxChecked(), "Singlplayer checkbox is not checked");
-        Assert.IsTrue(topSellers.IsActionCheckboxChecked(), "Action checkbox is not checked");
         Assert.IsTrue(topSellers.IsWindowsCheckboxChecked(), "Windows checkbox is not checked");
-        Assert.Greater(initialGamesCount, filteredGamesCount, "The number of games did not change after applying the filter");
+        Assert.IsTrue(topSellers.IsActionCheckboxChecked(), "Action checkbox is not checked");
+        Assert.IsTrue(topSellers.IsSimulationCheckboxChecked(), "Simulation checkbox is not checked");
 
 
+        int filteredGamesCountFromText = topSellers.GetGamesCountFromText();
+
+        Console.WriteLine("initialGamesCount = " + initialGamesCountFromText + "\n");
+        Console.WriteLine("filteredGamesCountFromText = " + filteredGamesCountFromText + "\n");
+
+        Assert.Greater(initialGamesCountFromText, filteredGamesCountFromText, "The number of games did not change after applying the filter");
+
+        topSellers.ScrollToBottom();
+
+        Console.WriteLine("Found games = " + topSellers.GetDisplayedGamesCount() + "\n");
+
+        Assert.AreEqual(topSellers.GetDisplayedGamesCount(), filteredGamesCountFromText, "The number of games displayed is not as expected");
     }
 
     [TearDown]
@@ -53,3 +67,4 @@ public class Tests
         //_webDriver.Quit();
     }
 }
+
