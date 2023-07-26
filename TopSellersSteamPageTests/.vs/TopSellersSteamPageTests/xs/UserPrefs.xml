@@ -1,42 +1,35 @@
 ﻿<Properties StartupConfiguration="{676E6B1B-1626-458F-9483-9B1C514E7149}|Default">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TopSellersSteamPageTests/PageObjects/TopSellersPageObject.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TopSellersSteamPageTests/TopSellersSteamPageTests.cs">
     <Files>
-      <File FileName="TopSellersSteamPageTests/ElementWaiter.cs" Line="21" Column="1" />
-      <File FileName="TopSellersSteamPageTests/TopSellersSteamPageTests.cs" Line="57" Column="11" />
-      <File FileName="TopSellersSteamPageTests/PageObjects/TopSellersPageObject.cs" Line="18" Column="1" />
-      <File FileName="TopSellersSteamPageTests/PageObjects/BasePageObject.cs" Line="15" Column="82" />
-      <File FileName="TopSellersSteamPageTests/PageObjects/MainMenuPageObject.cs" Line="27" Column="20" />
-      <File FileName="TopSellersSteamPageTests/Usings.cs" />
+      <File FileName="TopSellersSteamPageTests/TopSellersSteamPageTests.cs" Line="59" Column="42" />
+      <File FileName="TopSellersSteamPageTests/PageObjects/GamePageObject.cs" Line="1" Column="1" />
+      <File FileName="TopSellersSteamPageTests/PageObjects/BasePageObject.cs" Line="1" Column="1" />
+      <File FileName="TopSellersSteamPageTests/PageObjects/TopSellersPageObject.cs" Line="124" Column="91" />
+      <File FileName="TopSellersSteamPageTests/PageObjects/MainMenuPageObject.cs" Line="26" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="TopSellersSteamPageTests">
-            <Node name="TopSellersSteamPageTests">
-              <Node name="PageObjects">
-                <Node name="TopSellersPageObject.cs" selected="True" />
-              </Node>
+          <Node name="TopSellersSteamPageTests" expanded="True">
+            <Node name="TopSellersSteamPageTests" expanded="True">
+              <Node name="PageObjects" expanded="True" />
+              <Node name="TopSellersSteamPageTests.cs" selected="True" />
             </Node>
           </Node>
         </State>
       </Pad>
       <Pad Id="MonoDevelop.UnitTesting.TestPad">
         <State name="__root__">
-          <Node name="TopSellersSteamPageTests">
-            <Node name="TopSellersSteamPageTests" selected="True" />
-          </Node>
+          <Node name="TopSellersSteamPageTests" expanded="True" selected="True" />
         </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.TopSellersSteamPageTests PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.TopSellersSteamPageTests PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

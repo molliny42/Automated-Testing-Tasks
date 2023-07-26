@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using TopSellersSteamPageTests.Helpers;
 
 namespace TopSellersSteamPageTests.PageObjects
 {
@@ -15,22 +16,9 @@ namespace TopSellersSteamPageTests.PageObjects
         private readonly By _windowsTagCheckbox = By.XPath("//div[@data-loc='Windows']");
         private readonly By _simulationTagCheckbox = By.XPath("//div[@data-loc='Simulation']");
         private readonly By _gameElement = By.XPath("//a[contains(@class, 'search_result_row')]");
+        private readonly By _firstGameElement = By.XPath("//a[contains(@class, 'search_result_row')][1]");
         private readonly By _finalPriceFirstGameElement = By.XPath("//a[contains(@class, 'search_result_row')][1]//div[@class='discount_final_price']");
 
-
-        public double GetGamePrice()
-        {
-            string priceWithCurrency = _webDriver.FindElement(_finalPriceFirstGameElement).Text;
-
-            string numericPriceText = priceWithCurrency.Replace("€", "").Replace(",","."); // Добавьте символы валют, которые нужно удалить
-
-            if (double.TryParse(numericPriceText, out double gamePrice))
-            {
-                return gamePrice;
-            }
-
-            return 0;
-        }
 
         public TopSellersPageObject(IWebDriver webDriver) : base(webDriver)
         {
@@ -118,9 +106,22 @@ namespace TopSellersSteamPageTests.PageObjects
 
         public int GetDisplayedGamesCount()
         {
+            _elementWaiter.WaitForElementDisplayedAndEnabled(_gameElement);
             IReadOnlyList<IWebElement> gamesElements = _webDriver.FindElements(_gameElement);
 
             return gamesElements.Count;
+        }
+
+        public GamePageObject NavigateToGamePage()
+        {
+            _elementWaiter.WaitForElementDisplayedAndEnabled(_firstGameElement).Click();
+            return new GamePageObject(_webDriver);
+        }
+
+        public double GetFirstGamePrice()
+        {
+            PriceHelper priceHelper = new PriceHelper(_webDriver,_elementWaiter);
+            return priceHelper.GetGamePrice(_finalPriceFirstGameElement);
         }        
     }
 }

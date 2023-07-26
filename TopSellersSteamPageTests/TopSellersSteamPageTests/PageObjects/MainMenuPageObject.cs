@@ -37,7 +37,6 @@ namespace TopSellersSteamPageTests.PageObjects
         {
             _elementWaiter.WaitForElementDisplayedAndEnabled(_topSellersButton).Click();
             return new TopSellersPageObject(_webDriver);
-        }
-        
+        } 
     }
 }

@@ -26,25 +26,21 @@ public class Tests
     {
         var mainMenu = new MainMenuPageObject(_webDriver);
         var topSellers = new TopSellersPageObject(_webDriver);
-
+        var gamePage = new GamePageObject(_webDriver);
 
         mainMenu.CloseCookiesPopup();
-
-        Assert.IsTrue(mainMenu.IsMainMenuPageIsDisplayed(), "Main menu page is not opened!");
+        Assert.IsTrue(mainMenu.IsMainMenuPageIsDisplayed(), "Main menu page is not opened");
 
         mainMenu.NavigateToTopSellers();
-
-        Assert.IsTrue(topSellers.IsTopSellersPageDisplayed(), "Top sellers page is not opened!");
+        Assert.IsTrue(topSellers.IsTopSellersPageDisplayed(), "Top sellers page is not opened");
 
         int initialGamesCountFromText = topSellers.GetGamesCountFromText();
 
         topSellers.ApplyFilters();
-
         Assert.IsTrue(topSellers.IsSingleplayerCheckboxChecked(), "Singlplayer checkbox is not checked");
         Assert.IsTrue(topSellers.IsWindowsCheckboxChecked(), "Windows checkbox is not checked");
         Assert.IsTrue(topSellers.IsActionCheckboxChecked(), "Action checkbox is not checked");
         Assert.IsTrue(topSellers.IsSimulationCheckboxChecked(), "Simulation checkbox is not checked");
-
 
         topSellers.WaitForFiltersApplied();
 
@@ -52,7 +48,6 @@ public class Tests
 
         Console.WriteLine("initialGamesCount = " + initialGamesCountFromText + "\n");
         Console.WriteLine("filteredGamesCountFromText = " + filteredGamesCountFromText + "\n");
-
         Assert.Greater(initialGamesCountFromText, filteredGamesCountFromText, "The number of games did not change after applying the filter");
 
         topSellers.ScrollToBottom();
@@ -61,9 +56,15 @@ public class Tests
 
         Assert.AreEqual(topSellers.GetDisplayedGamesCount(), filteredGamesCountFromText, "The number of games displayed is not as expected");
 
-        double priceFirstGame = topSellers.GetDisplayedGamesCount();
+        double priceFirstGame = topSellers.GetFirstGamePrice();
 
-        Console.WriteLine("First game price = " + topSellers.GetGamePrice().ToString());
+        Console.WriteLine("First game price = " + topSellers.GetFirstGamePrice().ToString());
+
+        topSellers.NavigateToGamePage();
+        Assert.IsTrue(gamePage.IsGamePageObjectDisplayed(), "Game page is not opened");
+
+        Console.WriteLine("expected price" + priceFirstGame + "actual price" + gamePage.GetGamePrice());
+        Assert.AreEqual(priceFirstGame, gamePage.GetGamePrice(), "The price of game displayed is not as expected");
     }
 
     [TearDown]

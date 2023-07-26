@@ -11,9 +11,11 @@
 
   <ItemGroup>
     <None Remove="PageObjects\" />
+    <None Remove="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PageObjects\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="3.2.0">
