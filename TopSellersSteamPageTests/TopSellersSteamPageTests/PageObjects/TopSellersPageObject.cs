@@ -1,37 +1,39 @@
-﻿using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
-using TopSellersSteamPageTests.Helpers;
 
 namespace TopSellersSteamPageTests.PageObjects
 {
     public class TopSellersPageObject : BasePageObject
     {
-        private readonly By _gamesCountFromTextElement = By.XPath("//div[@id='search_results_filtered_warning_persistent']/div[1]");
-        private readonly By _singleplayerTagCheckbox = By.XPath("//div[@data-loc='Singleplayer']");
-        private readonly By _actionTagCheckbox = By.XPath("//div[@data-loc='Action']");
-        private readonly By _windowsTagCheckbox = By.XPath("//div[@data-loc='Windows']");
-        private readonly By _simulationTagCheckbox = By.XPath("//div[@data-loc='Simulation']");
-        private readonly By _gameElement = By.XPath("//a[contains(@class, 'search_result_row')]");
-        private readonly By _firstGameElement = By.XPath("//a[contains(@class, 'search_result_row')][1]");
-        private readonly By _finalPriceFirstGameElement = By.XPath("//a[contains(@class, 'search_result_row')][1]//div[@class='discount_final_price']");
+        private readonly IDictionary<Elements, By> _elementMap = new Dictionary<Elements, By>
+        {
+            { Elements._gamesCountFromTextElement, By.XPath("//div[@id='search_results_filtered_warning_persistent']/div[not(contains(@class, 'settings_tab'))]") },
+            { Elements._singleplayerTagCheckbox, By.XPath("//div[@data-loc='Singleplayer']") },
+            { Elements._actionTagCheckbox, By.XPath("//div[@data-loc='Action']") },
+            { Elements._windowsTagCheckbox, By.XPath("//div[@data-loc='Windows']") },
+            { Elements._simulationTagCheckbox, By.XPath("//div[@data-loc='Simulation']") },
+            { Elements._gameElement, By.XPath("//a[contains(@class, 'search_result_row')]") },
+            { Elements._firstGameElement, By.XPath("//a[contains(@class, 'search_result_row')][1]") },
+            { Elements._firstGameNameElement, By.XPath("//a[contains(@class, 'search_result_row')][1]//span[@class='title']") },
+            { Elements._firstGameReleaseDateElement, By.XPath("//a[contains(@class, 'search_result_row')][1]//div[contains(@class, 'search_released')]") },
+            { Elements._finalPriceFirstGameElement, By.XPath("//a[contains(@class, 'search_result_row')][1]//div[@class='discount_final_price']") },
+        };
 
-
-        public TopSellersPageObject(IWebDriver webDriver) : base(webDriver)
+        public TopSellersPageObject(IWebDriver webDriver, ElementWaiter elementWaiter) : base(webDriver, elementWaiter)
         {
         }
 
-        public bool IsTopSellersPageDisplayed()
-        {
-            return _elementWaiter.WaitForElementDisplayedAndEnabled(_gamesCountFromTextElement).Displayed;
-        }
+        private IWebElement GetElement(Elements element) => _elementWaiter.WaitForElementDisplayedAndEnabled(_elementMap[element]);
+
+        public bool IsTopSellersPageDisplayed() => GetElement(Elements._gamesCountFromTextElement).Displayed;
+
 
         public int GetGamesCountFromText()
         {
-            string gamesCountTextElement = _elementWaiter.WaitForElementDisplayedAndEnabled(_gamesCountFromTextElement).Text;
+            string gamesCountTextElement = GetElement(Elements._gamesCountFromTextElement).Text;
+
 
             Match match = Regex.Match(gamesCountTextElement, @"\d{1,3}(?:,\d{3})*");
 
@@ -42,46 +44,40 @@ namespace TopSellersSteamPageTests.PageObjects
                 return gamesCount;
             }
 
-            return 0;
+            return 0;// добавить исключение
         }
 
-        public void ApplyFilters()
-        {
-            _elementWaiter.WaitForElementDisplayedAndEnabled(_singleplayerTagCheckbox).Click();
-            _elementWaiter.WaitForElementDisplayedAndEnabled(_windowsTagCheckbox).Click();
-            _elementWaiter.WaitForElementDisplayedAndEnabled(_actionTagCheckbox).Click();
-            _elementWaiter.WaitForElementDisplayedAndEnabled(_simulationTagCheckbox).Click();
-        }
+        public void ApplyFilter(Elements element) => GetElement(element).Click();
 
         //TODO
         public void WaitForFiltersApplied()
         {
             //WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
-            //wait.Until(ExpectedConditions.StalenessOf(_webDriver.FindElement(_gamesCountFromTextElement)));
+            //wait.Until(ExpectedConditions.StalenessOf(GetElement(Elements._gamesCountFromTextElement)));
 
             Thread.Sleep(3000);
         }
 
+        //public void WaitForFiltersApplied()
+        //{
+        //    try
+        //    {
+        //        WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
+        //        wait.Until(ExpectedConditions.ElementIsVisible(_gamesCountFromTextElement));
+        //    }
+        //    catch (WebDriverTimeoutException ex)
+        //    {
+        //        Console.WriteLine("Timeout exception occurred while waiting for filters to be applied: " + ex.Message);
+        //        throw;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("An error occurred while waiting for filters to be applied: " + ex.Message);
+        //        throw;
+        //    }
+        //}
 
-        public bool IsSingleplayerCheckboxChecked()
-        {
-            return _elementWaiter.WaitForElementDisplayedAndEnabled(_singleplayerTagCheckbox).GetAttribute("class").Contains("checked");
-        }
-
-        public bool IsActionCheckboxChecked()
-        {
-            return _elementWaiter.WaitForElementDisplayedAndEnabled(_actionTagCheckbox).GetAttribute("class").Contains("checked");
-        }
-
-        public bool IsWindowsCheckboxChecked()
-        {
-            return _elementWaiter.WaitForElementDisplayedAndEnabled(_windowsTagCheckbox).GetAttribute("class").Contains("checked");
-        }
-
-        public bool IsSimulationCheckboxChecked()
-        {
-            return _elementWaiter.WaitForElementDisplayedAndEnabled(_simulationTagCheckbox).GetAttribute("class").Contains("checked");
-        }
+        public bool IsCheckboxChecked(Elements element) => GetElement(element).GetAttribute("class").Contains("checked");
 
         public void ScrollToBottom()
         {
@@ -106,22 +102,32 @@ namespace TopSellersSteamPageTests.PageObjects
 
         public int GetDisplayedGamesCount()
         {
-            _elementWaiter.WaitForElementDisplayedAndEnabled(_gameElement);
-            IReadOnlyList<IWebElement> gamesElements = _webDriver.FindElements(_gameElement);
-
+            IReadOnlyList<IWebElement> gamesElements = _webDriver.FindElements(_elementMap[Elements._gameElement]);
             return gamesElements.Count;
         }
 
-        public GamePageObject NavigateToGamePage()
+        public Game GetFirstGame()
         {
-            _elementWaiter.WaitForElementDisplayedAndEnabled(_firstGameElement).Click();
-            return new GamePageObject(_webDriver);
+            string name = GetElement(Elements._firstGameNameElement).Text;
+            string releaseDate = GetElement(Elements._firstGameReleaseDateElement).Text;
+            string price = GetElement(Elements._finalPriceFirstGameElement).Text.Replace(" ", "");
+            return new Game(name, releaseDate, price);
         }
+       
+        public void NavigateToGamePage() => GetElement(Elements._firstGameElement).Click();
 
-        public double GetFirstGamePrice()
+        public enum Elements
         {
-            PriceHelper priceHelper = new PriceHelper(_webDriver,_elementWaiter);
-            return priceHelper.GetGamePrice(_finalPriceFirstGameElement);
-        }        
+            _gamesCountFromTextElement,
+            _singleplayerTagCheckbox,
+            _actionTagCheckbox,
+            _windowsTagCheckbox,
+            _simulationTagCheckbox,
+            _gameElement,
+            _firstGameElement,
+            _firstGameNameElement,
+            _firstGameReleaseDateElement,
+            _finalPriceFirstGameElement
+        }
     }
 }

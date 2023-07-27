@@ -8,12 +8,13 @@ namespace TopSellersSteamPageTests;
 public class Tests
 {
     private IWebDriver _webDriver;
+    private ElementWaiter _elementWaiter;
 
     [SetUp]
     public void Setup()
     {
         ChromeOptions options = new ChromeOptions();
-        options.BinaryLocation = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"; // Укажите полный путь к исполняемому файлу Chrome
+        options.BinaryLocation = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
         _webDriver = new ChromeDriver(options);
 
@@ -24,9 +25,9 @@ public class Tests
     [Test]
     public void CheckFilteredGamesCountWithDisplayedGamesCount_CountsMatch()
     {
-        var mainMenu = new MainMenuPageObject(_webDriver);
-        var topSellers = new TopSellersPageObject(_webDriver);
-        var gamePage = new GamePageObject(_webDriver);
+        var mainMenu = new MainMenuPageObject(_webDriver, _elementWaiter);
+        var topSellers = new TopSellersPageObject(_webDriver, _elementWaiter);
+        var gamePage = new GamePageObject(_webDriver, _elementWaiter);
 
         mainMenu.CloseCookiesPopup();
         Assert.IsTrue(mainMenu.IsMainMenuPageIsDisplayed(), "Main menu page is not opened");
@@ -36,41 +37,61 @@ public class Tests
 
         int initialGamesCountFromText = topSellers.GetGamesCountFromText();
 
-        topSellers.ApplyFilters();
-        Assert.IsTrue(topSellers.IsSingleplayerCheckboxChecked(), "Singlplayer checkbox is not checked");
-        Assert.IsTrue(topSellers.IsWindowsCheckboxChecked(), "Windows checkbox is not checked");
-        Assert.IsTrue(topSellers.IsActionCheckboxChecked(), "Action checkbox is not checked");
-        Assert.IsTrue(topSellers.IsSimulationCheckboxChecked(), "Simulation checkbox is not checked");
+        topSellers.ApplyFilter(TopSellersPageObject.Elements._singleplayerTagCheckbox);
+        topSellers.ApplyFilter(TopSellersPageObject.Elements._windowsTagCheckbox);
+        topSellers.ApplyFilter(TopSellersPageObject.Elements._actionTagCheckbox);
+        topSellers.ApplyFilter(TopSellersPageObject.Elements._simulationTagCheckbox);
+
+        Assert.Multiple(() => {
+            Assert.IsTrue(topSellers.IsCheckboxChecked(TopSellersPageObject.Elements._singleplayerTagCheckbox), "Singlplayer checkbox is not checked");
+            Assert.IsTrue(topSellers.IsCheckboxChecked(TopSellersPageObject.Elements._windowsTagCheckbox), "Windows checkbox is not checked");
+            Assert.IsTrue(topSellers.IsCheckboxChecked(TopSellersPageObject.Elements._actionTagCheckbox), "Action checkbox is not checked");
+            Assert.IsTrue(topSellers.IsCheckboxChecked(TopSellersPageObject.Elements._simulationTagCheckbox), "Simulation checkbox is not checked");
+        });
 
         topSellers.WaitForFiltersApplied();
 
-        int filteredGamesCountFromText = topSellers.GetGamesCountFromText();
-
-        Console.WriteLine("initialGamesCount = " + initialGamesCountFromText + "\n");
-        Console.WriteLine("filteredGamesCountFromText = " + filteredGamesCountFromText + "\n");
-        Assert.Greater(initialGamesCountFromText, filteredGamesCountFromText, "The number of games did not change after applying the filter");
-
         topSellers.ScrollToBottom();
 
-        Console.WriteLine("Found games = " + topSellers.GetDisplayedGamesCount() + "\n");
+        int filteredGamesCountFromText = topSellers.GetGamesCountFromText();
+        Assert.Less(filteredGamesCountFromText, initialGamesCountFromText, "The number of games did not change after applying the filter");
+                
+        Assert.AreEqual(topSellers.GetDisplayedGamesCount(), filteredGamesCountFromText,
+                        $"The number of games displayed is not as expected. Displayed game: {topSellers.GetDisplayedGamesCount()}, FilteredGamesCountFromText: {filteredGamesCountFromText}");
 
-        Assert.AreEqual(topSellers.GetDisplayedGamesCount(), filteredGamesCountFromText, "The number of games displayed is not as expected");
 
-        double priceFirstGame = topSellers.GetFirstGamePrice();
+        Game firstGame = topSellers.GetFirstGame();
 
-        Console.WriteLine("First game price = " + topSellers.GetFirstGamePrice().ToString());
-
-        topSellers.NavigateToGamePage();
+        topSellers.NavigateToGamePage();        
         Assert.IsTrue(gamePage.IsGamePageObjectDisplayed(), "Game page is not opened");
 
-        Console.WriteLine("expected price" + priceFirstGame + "actual price" + gamePage.GetGamePrice());
-        Assert.AreEqual(priceFirstGame, gamePage.GetGamePrice(), "The price of game displayed is not as expected");
+        Game game = gamePage.GetGame();
+        
+        Assert.Multiple(() =>
+        {
+            Assert.AreEqual(firstGame, game, "The game details do not match:");
+
+            if (firstGame._name != game._name)
+            {
+                Assert.Fail($"Expected name: {firstGame._name}, Actual name: {game._name}");
+            }
+
+            if (firstGame._releaseDate != game._releaseDate)
+            {
+                Assert.Fail($"Expected release date: {firstGame._releaseDate}, Actual release date: {game._releaseDate}");
+            }
+
+            if (firstGame._price != game._price)
+            {
+                Assert.Fail($"Expected price: {firstGame._price}, Actual price: {game._price}");
+            }
+        });
     }
 
     [TearDown]
     public void TearDown()
     {
-        _webDriver.Quit();
+        //_webDriver.Quit();
     }
 }
 
