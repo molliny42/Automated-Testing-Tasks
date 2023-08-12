@@ -49,19 +49,16 @@ public class Tests
             Assert.IsTrue(topSellers.IsCheckboxChecked(TopSellersPageObject.Elements._simulationTagCheckbox), "Simulation checkbox is not checked");
         });
 
-        topSellers.WaitForFiltersApplied();
-
         topSellers.ScrollToBottom();
 
         int filteredGamesCountFromText = topSellers.GetGamesCountFromText();
         Assert.Less(filteredGamesCountFromText, initialGamesCountFromText, "The number of games did not change after applying the filter");
-                
+
         Assert.AreEqual(topSellers.GetDisplayedGamesCount(), filteredGamesCountFromText,
                         $"The number of games displayed is not as expected. Displayed game: {topSellers.GetDisplayedGamesCount()}, FilteredGamesCountFromText: {filteredGamesCountFromText}");
-
-
+                
         Game firstGame = topSellers.GetFirstGame();
-
+        
         topSellers.NavigateToGamePage();        
         Assert.IsTrue(gamePage.IsGamePageObjectDisplayed(), "Game page is not opened");
 

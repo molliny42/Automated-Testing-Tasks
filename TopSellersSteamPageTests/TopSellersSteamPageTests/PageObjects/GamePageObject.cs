@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using static TopSellersSteamPageTests.PageObjects.TopSellersPageObject;
+﻿using System.Text.RegularExpressions;
+using OpenQA.Selenium;
 
 namespace TopSellersSteamPageTests.PageObjects
 {
@@ -15,12 +15,26 @@ namespace TopSellersSteamPageTests.PageObjects
 		}
 
         public bool IsGamePageObjectDisplayed() => _elementWaiter.WaitForElementDisplayedAndEnabled(_highlightsBlockGame).Displayed;
-               
+
+        public string GetFirstGamePrice()
+        {
+            try
+            {
+                string price = _elementWaiter.WaitForElementDisplayedAndEnabled(_gamePriceElement).Text.Replace(",", ".");
+                Match match = Regex.Match(price, @"\d+\.\d+");
+                return match.Success ? match.Value : "0";
+            }
+            catch(NoSuchElementException)
+            {
+                throw new Exception("Test failed due to NoSuchElementException: Element '_gamePriceElement' not found or not displayed in 'GamePageObject' class.");
+            }
+        }
+
         public Game GetGame()
         {
             string name = _elementWaiter.WaitForElementDisplayedAndEnabled(_gameNameElement).Text; ;
             string releaseDate = _elementWaiter.WaitForElementDisplayedAndEnabled(_gameReleaseDateElement).Text; ;
-            string price = _elementWaiter.WaitForElementDisplayedAndEnabled(_gamePriceElement).Text.Replace(" ", "");
+            string price = GetFirstGamePrice();
             return new Game(name, releaseDate, price);
         }
     }
