@@ -18,4 +18,10 @@
     <PackageReference Include="Selenium.WebDriver" Version="4.11.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="PageObjects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PageObjects\" />
+  </ItemGroup>
 </Project>
