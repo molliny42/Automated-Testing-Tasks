@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace BuycyclePagesTests;
+namespace BuycyclePagesTests.PageObjects;
 
 public class Tests
 {
@@ -19,9 +19,14 @@ public class Tests
     [Test]
     public void Test1()
     {
+        var mainMenu = new MainMenuPageObject(_webDriver);
+        mainMenu
+            .SignIn()
+            .Login();
+
         Assert.Pass();
     }
-    //
+
     [TearDown]
     public void TearDown()
     {
