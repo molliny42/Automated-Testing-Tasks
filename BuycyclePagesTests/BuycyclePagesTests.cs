@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System.Threading;
 
 namespace BuycyclePagesTests.PageObjects;
 
@@ -22,7 +23,7 @@ public class Tests
         var mainMenu = new MainMenuPageObject(_webDriver);
         mainMenu
             .SignIn()
-            .Login();
+            .Login("molliny42@gmail.com", "hpmor107");
 
         Assert.Pass();
     }
@@ -30,6 +31,7 @@ public class Tests
     [TearDown]
     public void TearDown()
     {
+        Thread.Sleep(TimeSpan.FromSeconds(10));
         _webDriver.Quit();
         _webDriver.Dispose();
     }

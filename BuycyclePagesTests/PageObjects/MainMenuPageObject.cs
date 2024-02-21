@@ -14,7 +14,7 @@ namespace BuycyclePagesTests.PageObjects
 
 		public AuthorizationPageObject SignIn()
 		{
-			_elementWaiter.WaitForElementDisplayedAndEnabled(_signButton).Click();
+            _elementWaiter.WaitForElementDisplayedAndEnabled(_signButton).Click();
 			return new AuthorizationPageObject(_webDriver);
 		}
 	}
