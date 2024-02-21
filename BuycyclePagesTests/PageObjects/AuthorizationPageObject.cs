@@ -19,7 +19,8 @@ namespace BuycyclePagesTests.PageObjects
 			_elementWaiter.WaitForElementDisplayedAndEnabled(_passwordInputField).SendKeys(password);
 			_elementWaiter.WaitForElementDisplayedAndEnabled(_enterLoginButton).Click();
 			return new MainMenuPageObject(_webDriver);
+			//разбить метод на состовляющие 
 		}
-	}
+    }
 }
 

@@ -6,6 +6,7 @@ namespace BuycyclePagesTests.PageObjects;
 public class Tests
 {
     private IWebDriver _webDriver;
+    private ElementWaiter _elementWaiter;
 
     [SetUp]
     public void Setup()
@@ -20,18 +21,19 @@ public class Tests
     [Test]
     public void Test1()
     {
-        var mainMenu = new MainMenuPageObject(_webDriver);
+        var mainMenuPage = new MainMenuPageObject(_webDriver, _elementWaiter); //mainPage
         mainMenu
             .SignIn()
-            .Login("molliny42@gmail.com", "hpmor107");
+            .Login(UserNameForTests.StartLogin, UserNameForTests.StartPassword);
 
-        Assert.Pass();
+        string actualUserName = mainMenu.getUserName();
+        Assert.That(actualUserName, Is.EqualTo(UserNameForTests.ExpectedUserName), "User name is wrong or Login wasn't completed.");
     }
 
     [TearDown]
     public void TearDown()
     {
-        Thread.Sleep(TimeSpan.FromSeconds(10));
+        Thread.Sleep(TimeSpan.FromSeconds(5));
         _webDriver.Quit();
         _webDriver.Dispose();
     }

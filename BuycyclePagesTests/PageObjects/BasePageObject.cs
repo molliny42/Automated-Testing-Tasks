@@ -1,5 +1,4 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace BuycyclePagesTests.PageObjects
 {
@@ -8,11 +7,10 @@ namespace BuycyclePagesTests.PageObjects
         protected IWebDriver _webDriver;
         protected ElementWaiter _elementWaiter;
 
-        public BasePageObject(IWebDriver webDriver)
+        public BasePageObject(IWebDriver webDriver, ElementWaiter elementWaiter)
         {
             _webDriver = webDriver;
-            _elementWaiter = new ElementWaiter(_webDriver, TimeSpan.FromSeconds(3));
+            _elementWaiter = new ElementWaiter(_webDriver, TimeSpan.FromSeconds(4));
         }
     }
 }
-
