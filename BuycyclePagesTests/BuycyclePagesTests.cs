@@ -21,12 +21,15 @@ public class Tests
     [Test]
     public void Test1()
     {
-        var mainMenuPage = new MainMenuPageObject(_webDriver, _elementWaiter); //mainPage
-        mainMenu
-            .SignIn()
+        var homePage = new MainMenuPageObject(_webDriver, _elementWaiter);
+
+        homePage.CloseCookiesPopup();
+        Assert.That(homePage.IsHomePageIsDisplayed(), Is.EqualTo(true), "Home page is not opened");
+
+        homePage.NavigateToAuthorizationPage()
             .Login(UserNameForTests.StartLogin, UserNameForTests.StartPassword);
 
-        string actualUserName = mainMenu.getUserName();
+        string actualUserName = homePage.getUserName();
         Assert.That(actualUserName, Is.EqualTo(UserNameForTests.ExpectedUserName), "User name is wrong or Login wasn't completed.");
     }
 
