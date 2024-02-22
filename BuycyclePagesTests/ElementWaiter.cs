@@ -22,5 +22,18 @@ namespace BuycyclePagesTests
                 return (tempElement.Displayed && tempElement.Enabled) ? tempElement : null;
             });
         }
+
+        public void WaitForCondition(Func<bool> condition)
+        {
+            _wait.Until(driver => condition());
+        }
+
+        //public void WaitForCondition(Func<bool> condition)
+        //{
+        //    _wait.Until(driver =>
+        //    {
+        //        return condition();
+        //    });
+        //}
     }
 }

@@ -10,7 +10,6 @@ namespace BuycyclePagesTests.PageObjects
         private readonly By _homeSlider = By.XPath("//div[@class='home-head-slider slick-initialized slick-slider']");
         private readonly By _signButton = By.XPath("//button[@data-target='#login-modal']");
 		private readonly By _userAvatar = By.XPath("//img[@alt='user avatar']");
-		private readonly By _userName = By.XPath("//a[contains(@class, 'profile-nav-link')]//strong");
 
 		public HomePageObject(IWebDriver webDriver, ElementWaiter elementWaiter) : base(webDriver, elementWaiter)
         {
@@ -33,19 +32,14 @@ namespace BuycyclePagesTests.PageObjects
 
         public bool IsHomePageIsDisplayed() => _elementWaiter.WaitForElementDisplayedAndEnabled(_homeSlider).Displayed;
 
-        public AuthorizationPageObject NavigateToAuthorizationPage()
-		{
-            _elementWaiter.WaitForElementDisplayedAndEnabled(_signButton).Click();
-			return new AuthorizationPageObject(_webDriver, _elementWaiter); 
-		}
+        public void NavigateToAuthorizationPage() => _elementWaiter.WaitForElementDisplayedAndEnabled(_signButton).Click();
 
-		public string getUserName()
-		{
-			_elementWaiter.WaitForElementDisplayedAndEnabled(_userAvatar).Click();
-			string userName = _elementWaiter.WaitForElementDisplayedAndEnabled(_userName).Text;
-			return userName;
-			//разбить
-		}
+        
+
+        public void NavigateToProfilePageObject()
+        {
+            _elementWaiter.WaitForElementDisplayedAndEnabled(_userAvatar).Click();
+        }
 	}
 }
 

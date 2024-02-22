@@ -22,17 +22,27 @@ public class Tests
     public void Test1()
     {
         var homePage = new HomePageObject(_webDriver, _elementWaiter);
-        var authorizationPage = new AuthorizationPageObject(_webDriver, _elementWaiter);
+        var authPage = new AuthorizationPageObject(_webDriver, _elementWaiter);
+        var profilePage = new ProfilePageObject(_webDriver, _elementWaiter);
+
         homePage.CloseCookiesPopup();
-        Assert.That(homePage.IsHomePageIsDisplayed(), Is.EqualTo(true), "Home page is not opened");
+        Assert.That(homePage.IsHomePageIsDisplayed(), Is.EqualTo(true), "Home page is not opened.");
 
         homePage.NavigateToAuthorizationPage();
-        Assert.That(authorizationPage.IsAuthorizationPageDisplayed(), Is.EqualTo(true), "Authorization page is not opened");
+        Assert.That(authPage.IsAuthorizationPageDisplayed(), Is.EqualTo(true), "Authorization page is not opened.");
 
-        authorizationPage.Login(UserNameForTests.StartLogin, UserNameForTests.StartPassword);
+        authPage.InputLogin(UserNameForTests.StartLogin);
+        authPage.WaitForLoginInput();
+        authPage.InputPassword(UserNameForTests.StartPassword);
+        authPage.WaitForPasswordInput();
+        authPage.ConfirmLogin();
+        Assert.That(homePage.IsHomePageIsDisplayed(), Is.EqualTo(true), "Home page is not opened.");
 
-        string actualUserName = homePage.getUserName();
-        Assert.That(actualUserName, Is.EqualTo(UserNameForTests.ExpectedUserName), "User name is wrong or Login wasn't completed.");
+        homePage.NavigateToProfilePageObject();
+        Assert.That(profilePage.IsProfilePageObjectIsDisplayed(), Is.EqualTo(true), "Profile page is not opened.");
+
+        string actualUserName = profilePage.GetUserName();
+        Assert.That(actualUserName, Is.EqualTo(UserNameForTests.ExpectedUserName), "User name is wrong.");
     }
 
     [TearDown]

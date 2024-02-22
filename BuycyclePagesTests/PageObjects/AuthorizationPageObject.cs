@@ -4,25 +4,45 @@ namespace BuycyclePagesTests.PageObjects
 {
 	public class AuthorizationPageObject : BasePageObject
 	{
-		private readonly By _loginForm = By.XPath("//form[@id='login--from']");
-		private readonly By _loginInputField = By.XPath("//form[@id='login--from']//input[@name='email']");
-		private readonly By _passwordInputField = By.XPath("//form[@id='login--from']//input[@name='password']");
-		private readonly By _enterLoginButton = By.XPath("//form[@id='login--from']//button[@type='submit']");
-
-        public AuthorizationPageObject(IWebDriver webDriver, ElementWaiter elementWaiter) : base(webDriver, elementWaiter)
-        {
-		}
-
-		public bool IsAuthorizationPageDisplayed() => _elementWaiter.WaitForElementDisplayedAndEnabled(_loginForm).Displayed;
-
-        public HomePageObject Login(string login, string password)
+		private readonly IDictionary<Elements, By> _elementMap = new Dictionary<Elements, By>
 		{
-			_elementWaiter.WaitForElementDisplayedAndEnabled(_loginInputField).SendKeys(login);
-			_elementWaiter.WaitForElementDisplayedAndEnabled(_passwordInputField).SendKeys(password);
-			_elementWaiter.WaitForElementDisplayedAndEnabled(_enterLoginButton).Click();
-			return new HomePageObject(_webDriver, _elementWaiter);
-			//разбить метод на составляющие 
+			{ Elements._loginForm, By.XPath("//form[@id='login--from']") },
+			{ Elements._loginInputField, By.XPath("//form[@id='login--from']//input[@name='email']") },
+			{ Elements._passwordInputField, By.XPath("//form[@id='login--from']//input[@name='password']") },
+			{ Elements._enterLoginButton, By.XPath("//form[@id='login--from']//button[@type='submit']") },
+		};
+
+		public AuthorizationPageObject(IWebDriver webDriver, ElementWaiter elementWaiter) : base(webDriver, elementWaiter)
+		{
 		}
-    }
+
+        private IWebElement GetElement(Elements element) => _elementWaiter.WaitForElementDisplayedAndEnabled(_elementMap[element]);
+
+        private void WaitForInputValue(Elements element)
+        {
+            _elementWaiter.WaitForCondition(() => GetElement(element).GetAttribute("value").Length > 0);
+        }
+
+        public bool IsAuthorizationPageDisplayed() => GetElement(Elements._loginForm).Displayed;
+
+		public void InputLogin(string login) => GetElement(Elements._loginInputField).SendKeys(login);
+
+        public void WaitForLoginInput() => WaitForInputValue(Elements._loginInputField);
+
+        public void InputPassword(string password) => GetElement(Elements._passwordInputField).SendKeys(password);
+
+        public void WaitForPasswordInput() => WaitForInputValue(Elements._passwordInputField);
+
+        public void ConfirmLogin() => GetElement(Elements._enterLoginButton).Click(); //ConfirmLoginAndNavigateToHomePage
+
+
+        public enum Elements
+		{
+            _loginForm,
+            _loginInputField,
+            _passwordInputField,
+            _enterLoginButton
+        }
+	}
 }
 
