@@ -1,5 +1,4 @@
-﻿using System;
-namespace BuycyclePagesTests
+﻿namespace BuycyclePagesTests
 {
 	public class UserNameForTests
 	{

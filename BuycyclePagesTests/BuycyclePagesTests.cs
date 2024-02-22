@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using System.Threading;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 
 namespace BuycyclePagesTests.PageObjects;
 
@@ -21,13 +21,15 @@ public class Tests
     [Test]
     public void Test1()
     {
-        var homePage = new MainMenuPageObject(_webDriver, _elementWaiter);
-
+        var homePage = new HomePageObject(_webDriver, _elementWaiter);
+        var authorizationPage = new AuthorizationPageObject(_webDriver, _elementWaiter);
         homePage.CloseCookiesPopup();
         Assert.That(homePage.IsHomePageIsDisplayed(), Is.EqualTo(true), "Home page is not opened");
 
-        homePage.NavigateToAuthorizationPage()
-            .Login(UserNameForTests.StartLogin, UserNameForTests.StartPassword);
+        homePage.NavigateToAuthorizationPage();
+        Assert.That(authorizationPage.IsAuthorizationPageDisplayed(), Is.EqualTo(true), "Authorization page is not opened");
+
+        authorizationPage.Login(UserNameForTests.StartLogin, UserNameForTests.StartPassword);
 
         string actualUserName = homePage.getUserName();
         Assert.That(actualUserName, Is.EqualTo(UserNameForTests.ExpectedUserName), "User name is wrong or Login wasn't completed.");

@@ -1,10 +1,10 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace BuycyclePagesTests.PageObjects
 {
 	public class AuthorizationPageObject : BasePageObject
 	{
+		private readonly By _loginForm = By.XPath("//form[@id='login--from']");
 		private readonly By _loginInputField = By.XPath("//form[@id='login--from']//input[@name='email']");
 		private readonly By _passwordInputField = By.XPath("//form[@id='login--from']//input[@name='password']");
 		private readonly By _enterLoginButton = By.XPath("//form[@id='login--from']//button[@type='submit']");
@@ -13,7 +13,9 @@ namespace BuycyclePagesTests.PageObjects
         {
 		}
 
-		public HomePageObject Login(string login, string password)
+		public bool IsAuthorizationPageDisplayed() => _elementWaiter.WaitForElementDisplayedAndEnabled(_loginForm).Displayed;
+
+        public HomePageObject Login(string login, string password)
 		{
 			_elementWaiter.WaitForElementDisplayedAndEnabled(_loginInputField).SendKeys(login);
 			_elementWaiter.WaitForElementDisplayedAndEnabled(_passwordInputField).SendKeys(password);
