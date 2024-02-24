@@ -18,10 +18,8 @@ namespace BuycyclePagesTests.PageObjects
 
         private IWebElement GetElement(Elements element) => _elementWaiter.WaitForElementDisplayedAndEnabled(_elementMap[element]);
 
-        private void WaitForInputValue(Elements element)
-        {
-            _elementWaiter.WaitForCondition(() => GetElement(element).GetAttribute("value").Length > 0);
-        }
+        private void WaitForInputValue(Elements element) => _elementWaiter.WaitForCondition(() =>
+		GetElement(element).GetAttribute("value").Length > 0);
 
         public bool IsAuthorizationPageDisplayed() => GetElement(Elements._loginForm).Displayed;
 
@@ -33,8 +31,7 @@ namespace BuycyclePagesTests.PageObjects
 
         public void WaitForPasswordInput() => WaitForInputValue(Elements._passwordInputField);
 
-        public void ConfirmLogin() => GetElement(Elements._enterLoginButton).Click(); //ConfirmLoginAndNavigateToHomePage
-
+        public void ConfirmLogin() => GetElement(Elements._enterLoginButton).Click();
 
         public enum Elements
 		{
