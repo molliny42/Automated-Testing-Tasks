@@ -16,7 +16,7 @@ namespace BuycyclePagesTests.PageObjects
 		{
 		}
 
-        private IWebElement GetElement(Elements element) => _elementWaiter.WaitForElementDisplayedAndEnabled(_elementMap[element]);
+        private IWebElement GetElement(Elements element) => _elementWaiter.WaitForElementToBeClickable(_elementMap[element]);
 
         private void WaitForInputValue(Elements element) => _elementWaiter.WaitForCondition(() =>
 		GetElement(element).GetAttribute("value").Length > 0);
@@ -42,4 +42,3 @@ namespace BuycyclePagesTests.PageObjects
         }
 	}
 }
-

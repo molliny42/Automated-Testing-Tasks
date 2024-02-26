@@ -7,10 +7,10 @@ namespace BuycyclePagesTests.PageObjects
         protected IWebDriver _webDriver;
         protected ElementWaiter _elementWaiter;
 
-        public BasePageObject(IWebDriver webDriver, ElementWaiter elementWaiter) // thinck about it
+        public BasePageObject(IWebDriver webDriver, ElementWaiter elementWaiter)
         {
             _webDriver = webDriver;
-            _elementWaiter = new ElementWaiter(_webDriver, TimeSpan.FromSeconds(4));
+            _elementWaiter = elementWaiter;
         }
     }
 }
