@@ -64,14 +64,15 @@ public class Tests
         Assert.That(categoryPage.IsCheckboxFromDropdownChecked("M (53-55)"), Is.EqualTo(true), "'M (53-55)' checkbox is not selected.");
         Assert.That(categoryPage.IsFilterTagDisplayed("M (53-55)"), Is.EqualTo(true), "'M (53-55)' filter tag is not displayed.");
 
-        Thread.Sleep(2000);
+        bool valueChanged = categoryPage.WaitForValueChange(() => categoryPage.GetBikeCount(), initialBycyclesCount, TimeSpan.FromSeconds(10));
         string filteredBycyclesCount = categoryPage.GetBikeCount();
-        Assert.That(initialBycyclesCount, Is.Not.EqualTo(filteredBycyclesCount), "Count of bicycles has not changed after filtering.");
+        Assert.That(valueChanged, Is.EqualTo(true), "Count of bicycles has not changed after filtering.");
     }
 
     [TearDown]
     public void TearDown()
     {
+        Thread.Sleep(5000);
         _webDriver.Quit();
         _webDriver.Dispose();
     }

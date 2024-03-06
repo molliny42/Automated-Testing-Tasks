@@ -58,5 +58,14 @@ namespace BuycyclePagesTests.PageObjects
         public bool IsFilterTagDisplayed(string checkboxName) => _elementWaiter.WaitForElementToBeVisible(GetFilterTagXPath(checkboxName))?.Displayed ?? false;
 
         public string GetBikeCount() => _elementWaiter.WaitForElementToBeVisible(_filteredBikeCount)?.Text ?? string.Empty;
+
+        public bool WaitForValueChange(Func<string> getValue, string initialValue)
+        {
+            return _elementWaiter.WaitForCondition(() =>
+            {
+                string currentValue = getValue();
+                return !initialValue.Equals(currentValue);
+            });
+        }
     }
 }
