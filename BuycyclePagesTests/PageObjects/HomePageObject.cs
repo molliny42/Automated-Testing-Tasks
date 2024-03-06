@@ -19,9 +19,9 @@ namespace BuycyclePagesTests.PageObjects
         {
             try
             {
-                if (_elementWaiter.WaitForElementToBeVisible(_cookiesPopup).Displayed)
+                if (_elementWaiter.WaitForElementToBeVisible(_cookiesPopup)?.Displayed ?? false)
                 {
-                    _elementWaiter.WaitForElementToBeClickable(_acceptCookiesButton).Click();
+                    _elementWaiter.WaitForElementToBeClickable(_acceptCookiesButton)?.Click();
                 }
             }
             catch (WebDriverTimeoutException)
@@ -31,15 +31,13 @@ namespace BuycyclePagesTests.PageObjects
             }
         }
 
-        public bool IsHomePageIsDisplayed() => _elementWaiter.WaitForElementToBeVisible(_homeSlider).Displayed;
+        public bool IsHomePageIsDisplayed() => _elementWaiter.WaitForElementToBeVisible(_homeSlider)?.Displayed ?? false;
 
-        public void NavigateToAuthorizationPage() => _elementWaiter.WaitForElementToBeVisible(_signButton).Click();
-
-
+        public void NavigateToAuthorizationPage() => _elementWaiter.WaitForElementToBeVisible(_signButton)?.Click();
 
         public void NavigateToProfilePageObject()
         {
-            _elementWaiter.WaitForElementToBeClickable(_userAvatar).Click();
+            _elementWaiter.WaitForElementToBeClickable(_userAvatar)?.Click();
         }
     }
 }

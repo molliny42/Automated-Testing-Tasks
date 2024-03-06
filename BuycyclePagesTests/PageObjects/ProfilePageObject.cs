@@ -12,13 +12,15 @@ namespace BuycyclePagesTests.PageObjects
         {
         }
 
-        public bool IsProfilePageObjectIsDisplayed() => _elementWaiter.WaitForElementToBeClickable(_profilePageContainer).Displayed;
+        public bool IsProfilePageObjectIsDisplayed() => _elementWaiter.WaitForElementToBeClickable(_profilePageContainer)?.Displayed ?? false;
 
-        public string GetUserName() => _elementWaiter.WaitForElementToBeClickable(_userName).Text;
+        public string GetUserName() =>
+            _elementWaiter.WaitForElementToBeClickable(_userName)?.Text ?? string.Empty;
+
 
         public void NavigateToEnduroCategory()
         {
-            _elementWaiter.WaitForElementToBeClickable(_enduroCategoryHeaderLink).Click();
+            _elementWaiter.WaitForElementToBeClickable(_enduroCategoryHeaderLink)?.Click();
         }
     }
 }

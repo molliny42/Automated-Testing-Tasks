@@ -15,24 +15,52 @@ namespace BuycyclePagesTests
             _wait = new WebDriverWait(webDriver, timeout);
         }
 
-        public IWebElement WaitForElementToBeVisible(By locator)
+        public IWebElement? WaitForElementToBeVisible(By locator)
         {
-            return _wait.Until(ExpectedConditions.ElementIsVisible(locator));
+            try
+            {
+                return _wait.Until(ExpectedConditions.ElementIsVisible(locator));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return null;
+            }
+        }
+        public IWebElement? WaitForElementToBeClickable(By locator)
+        {
+            try
+            {
+                return _wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return null;
+            }
         }
 
-        public IWebElement WaitForElementToBeClickable(By locator)
+        public bool WaitForCondition(Func<bool> condition)
         {
-            return _wait.Until(ExpectedConditions.ElementToBeClickable(locator));
-        }
-
-        public void WaitForCondition(Func<bool> condition)
-        {
-            _wait.Until(_ => condition());
+            try
+            {
+                _wait.Until(_ => condition());
+                return true;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
+            }
         }
 
         public bool WaitForElementToBeSelected(By locator)
         {
-            return _wait.Until(ExpectedConditions.ElementToBeSelected(locator));
+            try
+            {
+                return _wait.Until(ExpectedConditions.ElementToBeSelected(locator));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
+            }
         }
     }
 }

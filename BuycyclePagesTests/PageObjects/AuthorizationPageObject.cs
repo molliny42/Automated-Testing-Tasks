@@ -16,10 +16,19 @@ namespace BuycyclePagesTests.PageObjects
 		{
 		}
 
-        private IWebElement GetElement(Elements element) => _elementWaiter.WaitForElementToBeClickable(_elementMap[element]);
+        private IWebElement GetElement(Elements element)
+        {
+            var clickableElement = _elementWaiter.WaitForElementToBeClickable(_elementMap[element]);
+            if (clickableElement == null)
+            {
+                throw new NoSuchElementException("Element not found or not clickable");
+            }
+            return clickableElement;
+        }
 
-        private void WaitForInputValue(Elements element) => _elementWaiter.WaitForCondition(() =>
-		GetElement(element).GetAttribute("value").Length > 0);
+        private void WaitForInputValue(Elements element) =>
+			_elementWaiter.WaitForCondition(() =>
+			GetElement(element).GetAttribute("value").Length > 0);
 
         public bool IsAuthorizationPageDisplayed() => GetElement(Elements._loginForm).Displayed;
 
