@@ -24,7 +24,7 @@ public class Tests
     {
         var homePage = new HomePageObject(_webDriver, _elementWaiter);
         homePage.CloseCookiesPopup();
-        Assert.That(homePage.IsHomePageIsDisplayed(), Is.EqualTo(true), "Home page is not opened.");
+        Assert.That(homePage.IsHomePageDisplayed(), Is.EqualTo(true), "Home page is not opened.");
 
         homePage.NavigateToAuthorizationPage();
         var authPage = new AuthorizationPageObject(_webDriver, _elementWaiter);
@@ -35,11 +35,11 @@ public class Tests
         authPage.InputPassword(JsonParser.GetString("credentials.json", JsonKeys.PASSWORD));
         authPage.WaitForPasswordInput();
         authPage.ConfirmLogin();
-        Assert.That(homePage.IsHomePageIsDisplayed(), Is.EqualTo(true), "Home page is not opened.");
+        Assert.That(homePage.IsHomePageDisplayed(), Is.EqualTo(true), "Home page is not opened.");
 
         homePage.NavigateToProfilePageObject();
         var profilePage = new ProfilePageObject(_webDriver, _elementWaiter);
-        Assert.That(profilePage.IsProfilePageObjectIsDisplayed(), Is.EqualTo(true), "Profile page is not opened.");
+        Assert.That(profilePage.IsProfilePageObjectDisplayed(), Is.EqualTo(true), "Profile page is not opened.");
 
         string actualUserName = profilePage.GetUserName();
         Assert.That(actualUserName, Is.EqualTo(JsonParser.GetString("credentials.json", JsonKeys.FULLNAME)), "User name is wrong.");
@@ -76,17 +76,21 @@ public class Tests
         categoryPage.ClickToCheckboxFromMainList("carbon");
         Assert.That(categoryPage.IsCheckboxFromMainListChecked("carbon"), Is.EqualTo(true), "'Carbon' checkbox is not selected.");
         Assert.That(categoryPage.IsFilterTagDisplayed("Carbon"), Is.EqualTo(true), "'Carbon' filter tag is not displayed.");
-
-
-        //categoryPage.ToggleOnCategoryFilter("colors");
-        //Assert.That(categoryPage.IsCategoryFilterToggleOn("colors"), Is.EqualTo(true), "'Colors' category filter is not opened.");
-               
+      
         bool valueChanged = categoryPage.WaitForValueChange(() => categoryPage.GetBikeCount(), initialBycyclesCount, TimeSpan.FromSeconds(4));
         string filteredBycyclesCount = categoryPage.GetBikeCount();
-        Assert.That(valueChanged, Is.EqualTo(true), "Count of bicycles has not changed after filtering.");
+        Assert.That(valueChanged, Is.EqualTo(true), "Count of bikes has not changed after filtering.");
 
-        string initialLastBikePrice = categoryPage.GetLastBikePrice();
+        string expectedLastBikePrice = categoryPage.GetLastBikePrice();
         categoryPage.ClickToLastBike();
+
+        var bikePage = new BikePageObject(_webDriver, _elementWaiter);
+        Assert.That(bikePage.IsBikePageObjectDisplayed(), Is.EqualTo(true), "Bike page is not opened.");
+
+        string actualLastBikePrice = bikePage.GetBikePrice();
+        Assert.That(expectedLastBikePrice, Is.EqualTo(actualLastBikePrice), $"Price of bikes does not match. Expected: {expectedLastBikePrice}. Actual: {actualLastBikePrice}");
+
+
     }
 
     [TearDown]

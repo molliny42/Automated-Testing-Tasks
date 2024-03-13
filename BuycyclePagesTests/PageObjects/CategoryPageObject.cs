@@ -5,7 +5,7 @@ namespace BuycyclePagesTests.PageObjects
 	public class CategoryPageObject : BasePageObject
 	{
         private readonly By _filteredBikeCountText = By.XPath("//b[@class='mr-1']");
-        private readonly By _bikeSalePrice = By.XPath("//div[contains(@class, 'bike-item-info-price')]//p[contains(@class, sale)]");
+        private readonly By _bikeSalePrice = By.XPath("//div[contains(@class, 'bike-item-info-price')]//p[contains(@class, 'sale')]");
         private By GetCategoryFilterButtonXPath(string categoryFilter) => By.XPath($"//button[@data-target='#{categoryFilter}']");
         private By GetOpenedCategoryFilterXPath(string categoryFilter) => By.XPath($"//div[@id='{categoryFilter}' and @class='collapse show']");
         private By GetInputFieldCategoryFilterXPath(string categoryFilter) => By.XPath($"//div[@id='{categoryFilter}']//div[contains(@class, 'select-trigger')]");
@@ -14,6 +14,7 @@ namespace BuycyclePagesTests.PageObjects
         private By GetCheckboxFromDropdownXPath(string checkboxName) => By.XPath($"//li[contains(@class, 'select-dropdown') and text()='{checkboxName}']");
         private By GetCheckboxFromInputFieldXPath(string checkboxName) => By.XPath($"//span[@class='el-select__tags-text' and text()='{checkboxName}']");
         private By GetFilterTagXPath(string checkboxName) => By.XPath($"//div[@class='shop-top-filter']//span[text()='{checkboxName}']");
+
         public CategoryPageObject(IWebDriver webDriver, ElementWaiter elementWaiter) : base(webDriver, elementWaiter) { }
 
         //TODO

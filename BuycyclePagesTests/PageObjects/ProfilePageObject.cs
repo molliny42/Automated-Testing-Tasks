@@ -12,7 +12,7 @@ namespace BuycyclePagesTests.PageObjects
         {
         }
 
-        public bool IsProfilePageObjectIsDisplayed() => _elementWaiter.WaitForElementToBeClickable(_profilePageContainer)?.Displayed ?? false;
+        public bool IsProfilePageObjectDisplayed() => _elementWaiter.WaitForElementToBeClickable(_profilePageContainer)?.Displayed ?? false;
 
         public string GetUserName() =>
             _elementWaiter.WaitForElementToBeClickable(_userName)?.Text ?? string.Empty;

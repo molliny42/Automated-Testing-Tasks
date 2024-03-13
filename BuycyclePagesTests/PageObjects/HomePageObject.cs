@@ -31,7 +31,7 @@ namespace BuycyclePagesTests.PageObjects
             }
         }
 
-        public bool IsHomePageIsDisplayed() => _elementWaiter.WaitForElementToBeVisible(_homeSlider)?.Displayed ?? false;
+        public bool IsHomePageDisplayed() => _elementWaiter.WaitForElementToBeVisible(_homeSlider)?.Displayed ?? false;
 
         public void NavigateToAuthorizationPage() => _elementWaiter.WaitForElementToBeVisible(_signButton)?.Click();
 
