@@ -55,24 +55,44 @@ public class Tests
 
         categoryPage.ToggleOnCategoryFilter("frame-sizes");
         Assert.That(categoryPage.IsCategoryFilterToggleOn("frame-sizes"), Is.EqualTo(true), "'Frame-sizes' category filter is not opened.");
-
         categoryPage.ClickToInputFieldCategoryFilter("frame-sizes");
-        Assert.That(categoryPage.IsInputFocused("frame-sizes"), Is.EqualTo(true), "Input field is not focused before opening the dropdown list.");
+        Assert.That(categoryPage.IsInputFocused("frame-sizes"), Is.EqualTo(true), "Input field for 'Frame-sizes' category filter is not focused before opening the dropdown list.");
         Assert.That(categoryPage.IsDropdownCheckboxesOpen(), Is.EqualTo(true), "Dropdown list is not visible after clicking on input field.");
-
         categoryPage.ClickToCheckboxFromDropdown("M (53-55)");
         Assert.That(categoryPage.IsCheckboxFromDropdownChecked("M (53-55)"), Is.EqualTo(true), "'M (53-55)' checkbox is not selected.");
         Assert.That(categoryPage.IsFilterTagDisplayed("M (53-55)"), Is.EqualTo(true), "'M (53-55)' filter tag is not displayed.");
 
-        bool valueChanged = categoryPage.WaitForValueChange(() => categoryPage.GetBikeCount(), initialBycyclesCount, TimeSpan.FromSeconds(10));
+        categoryPage.ToggleOnCategoryFilter("brands");
+        Assert.That(categoryPage.IsCategoryFilterToggleOn("brands"), Is.EqualTo(true), "'Brands' category filter is not opened.");
+        categoryPage.ClickToInputFieldCategoryFilter("brands");
+        Assert.That(categoryPage.IsInputFocused("brands"), Is.EqualTo(true), "Input field for 'Brands' category filter is not focused before opening the dropdown list.");
+        Assert.That(categoryPage.IsDropdownCheckboxesOpen(), Is.EqualTo(true), "Dropdown list is not visible after clicking on input field.");
+        categoryPage.ClickToCheckboxFromDropdown("CUBE");
+        Assert.That(categoryPage.IsCheckboxFromDropdownChecked("CUBE"), Is.EqualTo(true), "'CUBE' checkbox is not selected.");
+        Assert.That(categoryPage.IsFilterTagDisplayed("CUBE"), Is.EqualTo(true), "'CUBE' filter tag is not displayed.");
+
+        categoryPage.ToggleOnCategoryFilter("frame-material");
+        Assert.That(categoryPage.IsCategoryFilterToggleOn("frame-material"), Is.EqualTo(true), "'Frame-material' category filter is not opened.");
+        categoryPage.ClickToCheckboxFromMainList("carbon");
+        Assert.That(categoryPage.IsCheckboxFromMainListChecked("carbon"), Is.EqualTo(true), "'Carbon' checkbox is not selected.");
+        Assert.That(categoryPage.IsFilterTagDisplayed("Carbon"), Is.EqualTo(true), "'Carbon' filter tag is not displayed.");
+
+
+        //categoryPage.ToggleOnCategoryFilter("colors");
+        //Assert.That(categoryPage.IsCategoryFilterToggleOn("colors"), Is.EqualTo(true), "'Colors' category filter is not opened.");
+               
+        bool valueChanged = categoryPage.WaitForValueChange(() => categoryPage.GetBikeCount(), initialBycyclesCount, TimeSpan.FromSeconds(4));
         string filteredBycyclesCount = categoryPage.GetBikeCount();
         Assert.That(valueChanged, Is.EqualTo(true), "Count of bicycles has not changed after filtering.");
+
+        string initialLastBikePrice = categoryPage.GetLastBikePrice();
+        categoryPage.ClickToLastBike();
     }
 
     [TearDown]
     public void TearDown()
     {
-        Thread.Sleep(5000);
+        Thread.Sleep(6000);
         _webDriver.Quit();
         _webDriver.Dispose();
     }

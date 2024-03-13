@@ -55,12 +55,14 @@ namespace BuycyclePagesTests
         {
             try
             {
-                return _wait.Until(ExpectedConditions.ElementToBeSelected(locator));
+                _wait.Until(ExpectedConditions.ElementToBeSelected(locator));
+                return true;
             }
             catch (WebDriverTimeoutException)
             {
                 return false;
             }
         }
+
     }
 }

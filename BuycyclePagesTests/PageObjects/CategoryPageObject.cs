@@ -4,17 +4,16 @@ namespace BuycyclePagesTests.PageObjects
 {
 	public class CategoryPageObject : BasePageObject
 	{
-        private readonly By _filteredBikeCount = By.XPath("//b[@class='mr-1']");
+        private readonly By _filteredBikeCountText = By.XPath("//b[@class='mr-1']");
+        private readonly By _bikeSalePrice = By.XPath("//div[contains(@class, 'bike-item-info-price')]//p[contains(@class, sale)]");
         private By GetCategoryFilterButtonXPath(string categoryFilter) => By.XPath($"//button[@data-target='#{categoryFilter}']");
         private By GetOpenedCategoryFilterXPath(string categoryFilter) => By.XPath($"//div[@id='{categoryFilter}' and @class='collapse show']");
         private By GetInputFieldCategoryFilterXPath(string categoryFilter) => By.XPath($"//div[@id='{categoryFilter}']//div[contains(@class, 'select-trigger')]");
         private By GetCheckboxFromMainListXPath(string checkboxName) => By.XPath($"//input[@value='{checkboxName}']");
         private readonly By _dropdownCheckboxes = By.XPath("//div[@aria-hidden='false']//ul[contains(@class, 'el-select-dropdown__list')]");
         private By GetCheckboxFromDropdownXPath(string checkboxName) => By.XPath($"//li[contains(@class, 'select-dropdown') and text()='{checkboxName}']");
-        private By GetCheckboxFromInputFieldXPath(string checkboxName) => By.XPath($"//div[@id='frame-sizes']//span[@class='el-select__tags-text' and text()='{checkboxName}']");
-
+        private By GetCheckboxFromInputFieldXPath(string checkboxName) => By.XPath($"//span[@class='el-select__tags-text' and text()='{checkboxName}']");
         private By GetFilterTagXPath(string checkboxName) => By.XPath($"//div[@class='shop-top-filter']//span[text()='{checkboxName}']");
-                          
         public CategoryPageObject(IWebDriver webDriver, ElementWaiter elementWaiter) : base(webDriver, elementWaiter) { }
 
         //TODO
@@ -41,25 +40,83 @@ namespace BuycyclePagesTests.PageObjects
             return inputField?.GetAttribute("aria-describedby") != null;
         }
 
-        public bool IsDropdownCheckboxesOpen() => _elementWaiter.WaitForElementToBeVisible(_dropdownCheckboxes)?.Displayed ?? false;
+        public bool IsDropdownCheckboxesOpen() =>
+            _elementWaiter.WaitForElementToBeVisible(_dropdownCheckboxes)?.Displayed ?? false;
 
-        public void ClickToCheckboxFromMainList(string checkboxName) =>
-            _elementWaiter.WaitForElementToBeClickable(GetCheckboxFromMainListXPath(checkboxName))?.Click();
-
-        public void ClickToCheckboxFromDropdown(string checkboxName)
+        //WAITING
+        public void ClickToCheckboxFromMainList(string checkboxName)
         {
-            _elementWaiter.WaitForElementToBeClickable(GetCheckboxFromDropdownXPath(checkboxName))?.Click();
+             IJavaScriptExecutor js = (IJavaScriptExecutor)_webDriver;
+             js.ExecuteScript("arguments[0].click();", _webDriver.FindElement(GetCheckboxFromMainListXPath(checkboxName)));
         }
 
-        public bool IsCheckboxFromMainListChecked(string checkboxName) => _elementWaiter.WaitForElementToBeSelected(GetCheckboxFromMainListXPath(checkboxName));
+        public void ClickToCheckboxFromDropdown(string checkboxName) =>
+            _elementWaiter.WaitForElementToBeClickable(GetCheckboxFromDropdownXPath(checkboxName))?.Click();
 
-        public bool IsCheckboxFromDropdownChecked(string checkboxName) => _elementWaiter.WaitForElementToBeVisible(GetCheckboxFromInputFieldXPath(checkboxName))?.Displayed ?? false;
+        public bool IsCheckboxFromMainListChecked(string checkboxName) =>
+            _elementWaiter.WaitForElementToBeSelected(GetCheckboxFromMainListXPath(checkboxName));
 
-        public bool IsFilterTagDisplayed(string checkboxName) => _elementWaiter.WaitForElementToBeVisible(GetFilterTagXPath(checkboxName))?.Displayed ?? false;
+        public bool IsCheckboxFromDropdownChecked(string checkboxName) =>
+            _elementWaiter.WaitForElementToBeVisible(GetCheckboxFromInputFieldXPath(checkboxName))?.Displayed ?? false;
 
-        public string GetBikeCount() => _elementWaiter.WaitForElementToBeVisible(_filteredBikeCount)?.Text ?? string.Empty;
+        public bool IsFilterTagDisplayed(string checkboxName)
+        {
+            var element = _elementWaiter.WaitForElementToBeVisible(GetFilterTagXPath(checkboxName));
+            if (element?.Displayed ?? false)
+            {
+                return true;
+            }
+            else
+            {
+                ScrollToTop();
+                element = ScrollToFindElement((GetFilterTagXPath(checkboxName)));
+                return element?.Displayed ?? false;
+            }
+        }
 
-        public bool WaitForValueChange(Func<string> getValue, string initialValue)
+        private void ScrollToTop()
+        {
+            ((IJavaScriptExecutor)_webDriver).ExecuteScript("window.scrollTo(0, 0);");
+        }
+
+        private IWebElement? ScrollToFindElement(By locator)
+        {
+            int maxScrollAttempts = 10;
+            int scrollAttempts = 0;
+            IWebElement? element = null;
+
+            while (scrollAttempts < maxScrollAttempts)
+            {
+                ((IJavaScriptExecutor)_webDriver).ExecuteScript($"window.scrollBy(0, 100);");
+                element = _elementWaiter.WaitForElementToBeVisible(locator);
+                if (element != null)
+                {
+                    break;
+                }
+                scrollAttempts++;
+            }
+            return element;
+        }
+
+        public string GetLastBikePrice()
+        {
+            IReadOnlyList<IWebElement> bikesElements = _webDriver.FindElements(_bikeSalePrice);
+            return bikesElements.Count > 0 ? bikesElements[bikesElements.Count - 1].Text : string.Empty;
+        }
+
+        public void ClickToLastBike()
+        {
+            IReadOnlyList<IWebElement> bikesElements = _webDriver.FindElements(_bikeSalePrice);
+
+            IWebElement lastBike = bikesElements[bikesElements.Count - 1];
+            _elementWaiter.WaitForElementToBeClickable(_bikeSalePrice);
+            lastBike.Click();
+        }
+
+        public string GetBikeCount() =>
+            _elementWaiter.WaitForElementToBeVisible(_filteredBikeCountText)?.Text ?? string.Empty;
+
+         public bool WaitForValueChange(Func<string> getValue, string initialValue, TimeSpan timeout)
         {
             return _elementWaiter.WaitForCondition(() =>
             {
